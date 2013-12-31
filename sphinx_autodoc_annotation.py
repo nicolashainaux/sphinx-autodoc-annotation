@@ -12,7 +12,11 @@ def get_class_link(obj):
     return None
 
 def add_annotation_content(documenter):
-    sig = inspect.signature(documenter.object)
+    try:
+        sig = inspect.signature(documenter.object)
+    except ValueError:
+        # Can't extract signature, do nothing
+        return
     for param in sig.parameters.values():
         arg_link = get_class_link(param.annotation)
         if arg_link:
