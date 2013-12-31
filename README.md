@@ -60,3 +60,10 @@ automatically be added to your docstring.
 These directives behave like if you added them manually, that is, your argument is not going to
 show up only with `:type arg:` you *need* `:param arg:` to be there (with a description of what it
 does) for your type to show up.
+
+When there are no annotations, argument types are deduced from default values. If your default value
+is a `bool`, `str`, `int` or `float`, the argument is going to be considered of that type. That
+feature is there mainly because `f(flag: bool = False)` feels a bit redundant.
+
+In all cases, `:type:` and `:rtype:` directives in the docstring will always have precedence over
+annotations and defaults.
