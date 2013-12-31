@@ -20,15 +20,23 @@ def add_annotation_content(documenter):
     except ValueError:
         # Can't extract signature, do nothing
         return
+    src = inspect.getsourcefile(obj)
+    srcline = inspect.getsourcelines(obj)[1]
+    existing_contents = ''.join(documenter.directive.result)
     for param in sig.parameters.values():
+        type_directive = ":type %s:" % param.name
+        if type_directive in existing_contents:
+            # We already specidy the type of that argument in the docstring, don't specify it again.
+            continue
         arg_link = get_class_link(param.annotation)
         if arg_link:
-            line = ":type %s: %s\n" % (param.name, arg_link)
-            documenter.add_line(line, '', 0)
-    return_link = get_class_link(sig.return_annotation)
-    if return_link:
-        line = ":rtype: %s\n" % return_link
-        documenter.add_line(line, inspect.getsourcefile(obj), inspect.getsourcelines(obj)[1])
+            line = "%s: %s\n" % (type_directive, arg_link)
+            documenter.add_line(line, src, srcline)
+    if ":rtype:" not in existing_contents:
+        return_link = get_class_link(sig.return_annotation)
+        if return_link:
+            line = ":rtype: %s\n" % return_link
+            documenter.add_line(line, src, srcline)
 
 class MyFunctionDocumenter(FunctionDocumenter):
     def generate(self, *args, **kwargs):
