@@ -16,8 +16,8 @@ setup(
     install_requires = [
         'sphinx>=1.1',
     ],
-    author="Virgil Dupras",
-    author_email="hsoft@hardcoded.net",
+    author="Virgil Dupras; (Current maintainer: Nicolas Hainaux)",
+    author_email="nh.techn@gmail.com",
     description="Use Python 3 annotations in sphinx-enabled docstrings",
     long_description=open('README.rst', 'rt').read(),
     license="BSD",
