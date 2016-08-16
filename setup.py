@@ -10,7 +10,7 @@ CLASSIFIERS = [
 
 setup(
     name = "sphinx-autodoc-annotation",
-    version = "1.0",
+    version = "1.0-1",
     url = "https://github.com/hsoft/sphinx-autodoc-annotation",
     py_modules = ['sphinx_autodoc_annotation'],
     install_requires = [
